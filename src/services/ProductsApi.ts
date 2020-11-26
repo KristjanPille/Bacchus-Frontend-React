@@ -1,13 +1,11 @@
 import Axios from 'axios';
 import {IProduct} from "../domain/IProduct";
 
-const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
-
 export abstract class ProductsApi {
 
     private static axios = Axios.create(
         {
-            baseURL: PROXY_URL + "http://uptime-auction-api.azurewebsites.net/api/Auction",
+            baseURL: 'https://cors-anywhere.herokuapp.com/' + "http://uptime-auction-api.azurewebsites.net/api/Auction",
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         }
     )

@@ -1,0 +1,32 @@
+.flex-container {
+    display: flex;
+}
+
+.flex-child {
+    flex: 1;
+    border: 2px solid yellow;
+}
+
+.flex-child:first-child {
+    margin-right: 20px;
+    max-width: 10%
+}
+#categories{
+    max-width: 225px;
+}
+
+.table{
+    border-radius: 25px;
+    border-width: 3px;
+    background-color: whitesmoke;
+    transition: height 0.25s linear;
+}
+
+td {
+    font-weight: 600;
+}
+
+td:hover {
+    color: red;
+    cursor: pointer;
+}
