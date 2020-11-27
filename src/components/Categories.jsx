@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback} from "react";
 import '../index.css';
 
 function Categories({ parentProducts, filteredProducts, filterProducts }) {
@@ -21,13 +21,9 @@ function Categories({ parentProducts, filteredProducts, filterProducts }) {
         filterOutProducts(products);
     }
 
-    function resetCategories(){
-        filterProducts();
-    }
-
-    const productCategories = Array.from(new Set(parentProducts.map(a => a.productCategory)))
+    const productCategories = Array.from(new Set(parentProducts.map(product => product.productCategory)))
         .map(productCategory => {
-            return parentProducts.find(a => a.productCategory === productCategory)
+            return parentProducts.find(product => product.productCategory === productCategory)
         })
 
     const filterOutProducts = useCallback((products) => {

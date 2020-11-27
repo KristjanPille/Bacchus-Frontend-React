@@ -1,39 +1,31 @@
 import React, {useCallback} from "react";
 import moment from 'moment/min/moment-with-locales';
 import 'moment/locale/et'
-import useCountdown from "@rooks/use-countdown"
+import {Link} from "react-router-dom";
+import {TimeFunc} from "../utils/CountdownHandler";
 
-function Products({ parentProducts, productsChange, filteredProducts }) {
-
+function Products({ parentProducts, productsChange, filteredProducts, setActiveProduct }) {
 
     const ProductsRow = (props) => (
         <tr>
-            <td>{props.product.productName}</td>
+            <td onClick={()=>setProductToBeActive(props.product)}>{props.product.productName}</td>
             <td>{setLocale(props.product.biddingEndDate)}</td>
-            <td>{TimeFunc(props.product.biddingEndDate, props.product.productId)}</td>
+            <td>{TimeFunc(props.product.biddingEndDate, props.product.productId, handleProducts)}</td>
         </tr>
     );
 
-    function TimeFunc(biddingEndDate, productId) {
-
-        let endTime = new Date(biddingEndDate);
-
-        let seconds =  useCountdown(endTime, {
-            interval: 1000,
-            onEnd: time => deleteProduct(productId),
-        });
-        return new Date(seconds * 1000).toISOString().substr(11, 8)
-    }
     function setLocale(biddingEndDate){
         moment.locale('et');
         return moment(biddingEndDate).format("YYYY-MM-DD HH:mm:ss");
     }
 
-    function deleteProduct(productId){
-        handleProducts(productId)
-    }
+    const setProductToBeActive = useCallback((product) => {
+        setActiveProduct(product);
+    }, []);
 
-    const handleProducts= useCallback((productId) => {
+
+    let handleProducts;
+    handleProducts = useCallback((productId) => {
         productsChange(productId);
     }, []);
 
@@ -42,7 +34,7 @@ function Products({ parentProducts, productsChange, filteredProducts }) {
             <table className="table table-striped">
                 <thead>
                 <tr>
-                    <th>product Name</th>
+                    <th>Name of product</th>
                     <th>End time</th>
                     <th>Time left</th>
                 </tr>
