@@ -37,7 +37,7 @@ function Products({ parentProducts, productsChange, filteredProducts, setActiveP
     let handleProducts;
     handleProducts = useCallback((productId) => {
         productsChange(productId);
-    }, []);
+    }, [1]);
 
     return (
         <>
