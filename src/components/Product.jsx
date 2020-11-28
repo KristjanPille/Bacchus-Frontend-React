@@ -50,7 +50,7 @@ function Product({ product, productsChange, resetProduct }) {
                 }
                 <div className="card">
                     <img src={placeholder} alt={"a"} style={{ width:"100%" }}/>
-                    <h5>{product.productName}</h5>
+                    <h5 className="card-title font-weight-bold">{product.productName}</h5>
                     <p >
                         {product.productDescription}
                     </p>

@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
-import moment from 'moment/min/moment-with-locales';
 import 'moment/locale/et'
 import placeholder from '../../src/gallery/placeholder-image.jpg'
 import {TimeFunc} from "../utils/CountdownHandler";
@@ -19,7 +18,7 @@ function Products({ parentProducts, productsChange, filteredProducts, setActiveP
         setActiveProduct(product);
     }, []);
 
-    const MAX_LENGTH = 33;
+    const MAX_LENGTH = 32;
 
     let handleProducts;
     handleProducts = useCallback((productId) => {
@@ -27,23 +26,16 @@ function Products({ parentProducts, productsChange, filteredProducts, setActiveP
     }, []);
 
     const ProductsRow = (props) => (
-            <div className="card">
-                <img src={placeholder} alt={"a"} style={{ width:"100%" }}/>
-                    <h5>{props.product.productName}</h5>
-                        {props.product.productDescription.length > MAX_LENGTH ?
-                            (
-                                <p>
-                                    {props.product.productDescription.substring(0, MAX_LENGTH)}...
-                                </p>
-                            ) :
-                            <p>{props.product.productDescription}</p>
-                        }
+            <div className="card border-dark mb-4">
+                <div className="card-body">
+                    <img className="card-img-top" src={placeholder} alt={"a"} style={{ width:"100%" }}/>
+                    <h7 className="card-title font-weight-bold">{props.product.productName}</h7>
+
                     { mounted.current === true &&
-                    <p><b>Time left:</b> {TimeFunc(props.product.biddingEndDate, props.product.productId, handleProducts)}</p>
+                    <p className="card-text"><b>Time left:</b> {TimeFunc(props.product.biddingEndDate, props.product.productId, handleProducts)}</p>
                     }
-                    <p>
-                        <button onClick={()=>setProductToBeActive(props.product)}>Bid</button>
-                    </p>
+                    <button onClick={()=>setProductToBeActive(props.product)}>Bid</button>
+                </div>
             </div>
     );
 
