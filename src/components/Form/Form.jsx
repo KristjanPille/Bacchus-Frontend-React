@@ -39,7 +39,7 @@ const Form = (props) => {
                 bidderFirstName: state.firstName,
                 bidderLastName: state.lastName,
                 biddingEndDate: props.product.biddingEndDate,
-                bidDate: moment().format("DD-MM-YYYY hh:mm:ss").toString(),
+                bidDate: moment().toISOString(),
                 bid: Number(state.bidSize)
             }
             props.showAlert();

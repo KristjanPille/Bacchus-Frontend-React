@@ -13,13 +13,11 @@ export abstract class ProductsApi {
         const url = "";
         try {
             const response = await this.axios.get<IProduct[]>(url);
-            console.log('getAll response', response);
             if (response.status === 200) {
                 return response.data;
             }
             return [];
         } catch (error) {
-            console.log('error: ', (error as Error).message);
             return [];
         }
     }

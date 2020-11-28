@@ -29,11 +29,6 @@ function Products({ parentProducts, productsChange, filteredProducts, setActiveP
             </div>
     );
 
-    function setLocale(biddingEndDate){
-        moment.locale('et');
-        return moment(biddingEndDate).format("YYYY-MM-DD HH:mm:ss");
-    }
-
     const setProductToBeActive = useCallback((product) => {
         setActiveProduct(product);
     }, []);

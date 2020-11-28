@@ -38,7 +38,7 @@ function Categories({ parentProducts, filteredProducts, filterProducts }) {
                     <th>
                         Categories
                         {filteredProducts.length !== 0 &&
-                            <button onClick={() => filterOutProducts([])} type="button" className="btn btn-sm btn-warning font-weight-bold">Reset
+                            <button onClick={() => filterOutProducts([])} type="button" className="btn btn-sm btn-warning font-weight-bold btn-block">Reset
                                 Categories
                             </button>
                         }

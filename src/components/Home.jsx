@@ -64,7 +64,6 @@ export default class Home extends React.Component {
     resetProduct = () => {
         this.setState({ isPoppedOut: true });
         this.setState({ successfulBid: true });
-        //this.closeModal();
     };
 
     openModal() {
@@ -84,12 +83,11 @@ export default class Home extends React.Component {
                 newList.splice(itemIntList.index, 1);
                 this.setState({filteredProducts: newList});
             }
-            if (itemIntList !== undefined && itemIntList !== null) {
-                const newList = [].concat(this.state.products)
-                newList.splice(itemIntList.index, 1);
-                this.setState({products: newList});
-            }
         }
+        ProductsApi.getAll()
+            .then((productApiList) => {
+                this.setState({ products: productApiList })
+            });
     }
 
     render() {
@@ -111,7 +109,7 @@ export default class Home extends React.Component {
                 </Modal>
                 }
                 <div className="flex-child magenta">
-                    <Categories
+                    <Categories id={"categories"}
                         parentProducts={this.state.products}
                         filteredProducts={this.state.filteredProducts}
                         filterProducts={this.filterProducts}
