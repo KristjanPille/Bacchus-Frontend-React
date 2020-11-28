@@ -15,7 +15,7 @@ const FormView = (props) => (
             <label htmlFor="bidSize">Bid €</label>
             <input defaultValue={props.data.bidSize} name="bidSize" placeholder="Your bid" onChange={(e) => props.handleChange(e.target)} type="number" className="form-control" id="bidInput" required/>
         </div>
-        <button type="submit" form='my-form' className="btn btn-warning font-weight-bold">Submit</button>
+        <button type="submit" form='my-form' className="btn btn-warning font-weight-bold btn-block" disabled={!props.data.bidSize}>Submit</button>
     </form>
 );
 

@@ -1,17 +1,32 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect, useRef, useState} from "react";
 import moment from 'moment/min/moment-with-locales';
 import 'moment/locale/et'
-import {Link} from "react-router-dom";
+import placeholder from '../../src/gallery/placeholder-image.jpg'
 import {TimeFunc} from "../utils/CountdownHandler";
+import '../../src/index.css';
 
 function Products({ parentProducts, productsChange, filteredProducts, setActiveProduct }) {
 
+    const mounted = useRef(false);
+
+    useEffect(() => {
+        mounted.current = true;
+
+        return () => { mounted.current = false; };
+    }, []);
+
     const ProductsRow = (props) => (
-        <tr>
-            <td onClick={()=>setProductToBeActive(props.product)}>{props.product.productName}</td>
-            <td>{setLocale(props.product.biddingEndDate)}</td>
-            <td>{TimeFunc(props.product.biddingEndDate, props.product.productId, handleProducts)}</td>
-        </tr>
+            <div className="card">
+                <img src={placeholder} alt={"a"} style={{ width:"100%" }}/>
+                    <h5>{props.product.productName}</h5>
+                    <p>{props.product.productDescription}</p>
+                    { mounted.current === true &&
+                    <p><b>Time left:</b> {TimeFunc(props.product.biddingEndDate, props.product.productId, handleProducts)}</p>
+                    }
+                    <p>
+                        <button onClick={()=>setProductToBeActive(props.product)}>Bid</button>
+                    </p>
+            </div>
     );
 
     function setLocale(biddingEndDate){
@@ -31,15 +46,7 @@ function Products({ parentProducts, productsChange, filteredProducts, setActiveP
 
     return (
         <>
-            <table className="table table-striped">
-                <thead>
-                <tr>
-                    <th>Name of product</th>
-                    <th>End time</th>
-                    <th>Time left</th>
-                </tr>
-                </thead>
-                <tbody>
+            <div className="wrap">
                 {filteredProducts.length === 0 ? (
                     parentProducts.map(product =>
                         <ProductsRow product={product} key={product.productId}/>
@@ -49,8 +56,7 @@ function Products({ parentProducts, productsChange, filteredProducts, setActiveP
                         <ProductsRow product={product} key={product.productId}/>
                     )
                 )}
-                </tbody>
-            </table>
+            </div>
         </>
     )
 }

@@ -1,8 +1,6 @@
 import useCountdown from "@rooks/use-countdown";
-import React, {useCallback} from "react";
-import moment from 'moment/min/moment-with-locales';
+import React from "react";
 import 'moment/locale/et'
-
 
 export const TimeFunc = (biddingEndDate, productId, handleProducts) => {
 
@@ -12,5 +10,5 @@ export const TimeFunc = (biddingEndDate, productId, handleProducts) => {
         interval: 1000,
         onEnd: time => handleProducts(productId),
     });
-    return new Date(seconds * 1000).toISOString().substr(11, 8)
+    return new Date(seconds * 1000).toISOString().substr(14, 5)
 };

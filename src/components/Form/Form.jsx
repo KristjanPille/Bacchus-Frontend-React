@@ -9,7 +9,7 @@ const Form = (props) => {
             firstName: '',
             lastName: '',
             bidSize: null,
-            submitted: false
+            submitted: false,
         }
     );
 
@@ -22,18 +22,29 @@ const Form = (props) => {
         }
     }
 
+    function isBidDoneBeforeEnd(){
+
+        let endDate = moment(props.product.biddingEndDate);
+        let bidDate = moment();
+
+        return bidDate <= endDate;
+
+    }
+
     function saveBid(){
-        let bid = {
-            productId: props.product.productId,
-            productName: props.product.productName,
-            bidderFirstName: state.firstName,
-            bidderLastName: state.lastName,
-            biddingEndDate: props.product.biddingEndDate,
-            bidDate: moment().format("DD-MM-YYYY hh:mm:ss").toString(),
-            bid: Number(state.bidSize)
+        if(isBidDoneBeforeEnd()){
+            let bid = {
+                productId: props.product.productId,
+                productName: props.product.productName,
+                bidderFirstName: state.firstName,
+                bidderLastName: state.lastName,
+                biddingEndDate: props.product.biddingEndDate,
+                bidDate: moment().format("DD-MM-YYYY hh:mm:ss").toString(),
+                bid: Number(state.bidSize)
+            }
+            props.showAlert();
+            BidsApi.create(bid).then(r => r);
         }
-        props.showAlert();
-        BidsApi.create(bid).then(r => r);
     }
 
     const handleSubmit = (event) => {

@@ -4,6 +4,7 @@ import 'moment/locale/et'
 import {TimeFunc} from "../utils/CountdownHandler";
 import Form from "./Form/Form";
 import Alert from 'react-bootstrap/Alert'
+import placeholder from "../gallery/placeholder-image.jpg";
 
 function Product({ product, productsChange, resetProduct }) {
 
@@ -15,6 +16,7 @@ function Product({ product, productsChange, resetProduct }) {
     const mounted = useRef(false);
 
     const [show, setShow] = useState(false);
+    const [biddingEnded, setBiddingEnded] = useState(false);
 
     useEffect(() => {
         mounted.current = true;
@@ -24,6 +26,7 @@ function Product({ product, productsChange, resetProduct }) {
 
     let handleProducts;
     handleProducts = useCallback((productId) => {
+        setBiddingEnded(true);
         productsChange(productId);
     }, []);
 
@@ -35,28 +38,23 @@ function Product({ product, productsChange, resetProduct }) {
         <>
             <div>
                 { mounted.current === true && show &&
-                <Alert variant="success" onClose={() => setShow(false)} dismissible>
-                    <Alert.Heading>Congratulations! You have successfully submitted your bid!</Alert.Heading>
+                <Alert style={{width: "100%"}} variant="success" onClose={() => setShow(false)} dismissible>
+                    <Alert.Heading>Congratulations!</Alert.Heading>
+                    <p>You have successfully submitted your bid!</p>
                 </Alert>
                 }
-            <table className="table table-striped">
-                <thead>
-                <tr>
-                    <th>product Name</th>
-                    <th>Description</th>
-                    <th>Bidding End Date</th>
-                    <th>Time left</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>{product.productName}</td>
-                    <td>{product.productDescription}</td>
-                    <td>{setLocale(product.biddingEndDate)}</td>
-                    <td>{TimeFunc(product.biddingEndDate, product.productId, handleProducts)}</td>
-                </tr>
-                </tbody>
-            </table>
+                { biddingEnded &&
+                <Alert style={{width: "100%"}} variant="danger">
+                    <b>Bidding for this product has ended!</b>
+                </Alert>
+                }
+                <div className="card">
+                    <img src={placeholder} alt={"a"} style={{ width:"100%" }}/>
+                    <h5>{product.productName}</h5>
+                    <p>{product.productDescription}</p>
+                    <p><b>Time left:</b> {TimeFunc(product.biddingEndDate, product.productId, handleProducts)}</p>
+
+                </div>
                 <Form
                     product={product}
                     resetActiveProduct={resetProduct}
