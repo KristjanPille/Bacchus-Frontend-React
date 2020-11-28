@@ -15,6 +15,15 @@ function Products({ parentProducts, productsChange, filteredProducts, setActiveP
         return () => { mounted.current = false; };
     }, []);
 
+    const setProductToBeActive = useCallback((product) => {
+        setActiveProduct(product);
+    }, []);
+
+    let handleProducts;
+    handleProducts = useCallback((productId) => {
+        productsChange(productId);
+    }, []);
+
     const ProductsRow = (props) => (
             <div className="card">
                 <img src={placeholder} alt={"a"} style={{ width:"100%" }}/>
@@ -29,15 +38,6 @@ function Products({ parentProducts, productsChange, filteredProducts, setActiveP
             </div>
     );
 
-    const setProductToBeActive = useCallback((product) => {
-        setActiveProduct(product);
-    }, []);
-
-
-    let handleProducts;
-    handleProducts = useCallback((productId) => {
-        productsChange(productId);
-    }, [1]);
 
     return (
         <>

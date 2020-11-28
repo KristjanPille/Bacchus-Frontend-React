@@ -20,7 +20,6 @@ function Product({ product, productsChange, resetProduct }) {
 
     useEffect(() => {
         mounted.current = true;
-
         return () => { mounted.current = false; };
     }, []);
 

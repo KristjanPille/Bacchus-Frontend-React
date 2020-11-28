@@ -2,7 +2,7 @@ import useCountdown from "@rooks/use-countdown";
 import React from "react";
 import 'moment/locale/et'
 
-export const TimeFunc = async (biddingEndDate, productId, handleProducts) => {
+export const TimeFunc = (biddingEndDate, productId, handleProducts) => {
 
     let endTime = new Date(biddingEndDate);
 
