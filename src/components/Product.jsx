@@ -32,6 +32,7 @@ function Product({ product, productsChange, resetProduct }) {
     const showAlert = () => {
         setShow(true);
     }
+    const { text } = product.productDescription;
 
     return (
         <>
@@ -50,7 +51,9 @@ function Product({ product, productsChange, resetProduct }) {
                 <div className="card">
                     <img src={placeholder} alt={"a"} style={{ width:"100%" }}/>
                     <h5>{product.productName}</h5>
-                    <p>{product.productDescription}</p>
+                    <p >
+                        {product.productDescription}
+                    </p>
                     <p><b>Time left:</b> {TimeFunc(product.biddingEndDate, product.productId, handleProducts)}</p>
 
                 </div>

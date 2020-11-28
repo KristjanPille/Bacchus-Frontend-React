@@ -19,6 +19,8 @@ function Products({ parentProducts, productsChange, filteredProducts, setActiveP
         setActiveProduct(product);
     }, []);
 
+    const MAX_LENGTH = 33;
+
     let handleProducts;
     handleProducts = useCallback((productId) => {
         productsChange(productId);
@@ -28,7 +30,14 @@ function Products({ parentProducts, productsChange, filteredProducts, setActiveP
             <div className="card">
                 <img src={placeholder} alt={"a"} style={{ width:"100%" }}/>
                     <h5>{props.product.productName}</h5>
-                    <p>{props.product.productDescription}</p>
+                        {props.product.productDescription.length > MAX_LENGTH ?
+                            (
+                                <p>
+                                    {props.product.productDescription.substring(0, MAX_LENGTH)}...
+                                </p>
+                            ) :
+                            <p>{props.product.productDescription}</p>
+                        }
                     { mounted.current === true &&
                     <p><b>Time left:</b> {TimeFunc(props.product.biddingEndDate, props.product.productId, handleProducts)}</p>
                     }
