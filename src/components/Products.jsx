@@ -18,8 +18,6 @@ function Products({ parentProducts, productsChange, filteredProducts, setActiveP
         setActiveProduct(product);
     }, []);
 
-    const MAX_LENGTH = 32;
-
     let handleProducts;
     handleProducts = useCallback((productId) => {
         productsChange(productId);
@@ -29,7 +27,7 @@ function Products({ parentProducts, productsChange, filteredProducts, setActiveP
             <div className="card border-dark mb-4">
                 <div className="card-body">
                     <img className="card-img-top" src={placeholder} alt={"a"} style={{ width:"100%" }}/>
-                    <h7 className="card-title font-weight-bold">{props.product.productName}</h7>
+                    <h5 className="card-title font-weight-bold small">{props.product.productName}</h5>
 
                     { mounted.current === true &&
                     <p className="card-text"><b>Time left:</b> {TimeFunc(props.product.biddingEndDate, props.product.productId, handleProducts)}</p>

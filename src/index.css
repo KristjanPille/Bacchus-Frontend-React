@@ -16,7 +16,6 @@ div.flex-child.magenta{
 }
 
 .table{
-    border-radius: 15px;
     border-width: 3px;
     background-color: whitesmoke;
     transition: height 0.25s linear;
@@ -42,9 +41,6 @@ label {
     text-align: center;
     font-family: arial, serif;
 }
-.card:hover {
-    cursor: pointer;
-}
 
 .card button {
     border: none;
@@ -68,7 +64,6 @@ label {
 }
 .wrap > div {
     display: inline-block;
-    max-height: 40vh;
     margin: 10px;
 }
 
