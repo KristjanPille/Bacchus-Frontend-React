@@ -29,6 +29,7 @@ export abstract class BidsApi {
 
     static async create(bid: IBid): Promise<void> {
         const url = "";
+        console.log(bid)
         try {
             const response = await this.axios.post<IBid>(url, bid)
             console.log('update response', response);

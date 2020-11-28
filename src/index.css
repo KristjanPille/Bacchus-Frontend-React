@@ -16,7 +16,7 @@
 }
 
 .table{
-    border-radius: 25px;
+    border-radius: 15px;
     border-width: 3px;
     background-color: whitesmoke;
     transition: height 0.25s linear;
@@ -29,4 +29,8 @@ td {
 td:hover {
     color: red;
     cursor: pointer;
+}
+
+label {
+    font-weight: bold;
 }

@@ -4,10 +4,19 @@ import {ProductsApi} from "../services/ProductsApi";
 import '../index.css';
 import { trackPromise } from 'react-promise-tracker';
 import Categories from "./Categories";
+import Modal from 'react-modal';
 import Product from "./Product";
-import Button from 'react-bootstrap/Button';
-import 'reactjs-popup/dist/index.css';
-import Modal from "bootstrap/js/dist/modal";
+
+const customStyles = {
+    content : {
+        top                   : '50%',
+        left                  : '50%',
+        right                 : 'auto',
+        bottom                : 'auto',
+        marginRight           : '-50%',
+        transform             : 'translate(-50%, -50%)'
+    }
+};
 
 export default class Home extends React.Component {
     constructor(props) {
@@ -16,11 +25,13 @@ export default class Home extends React.Component {
             products: [],
             activeProduct: {},
             filteredProducts: [],
+            successfulBid: false,
             _isMounted: false,
-            isPoppedOut: false
+            isPoppedOut: false,
+            modalIsOpen: false,
         }
+        this.closeModal = this.closeModal.bind(this);
     }
-
 
     // Make only one api call and send result down to children components
     async componentDidMount() {
@@ -46,51 +57,59 @@ export default class Home extends React.Component {
 
     setProduct = activeProduct => {
         this.setState({ activeProduct })
+        this.setState({ isPoppedOut: false });
+        this.setState({ modalIsOpen: true })
     }
 
+    resetProduct = () => {
+        this.setState({ isPoppedOut: true });
+        this.setState({ successfulBid: true });
+        //this.closeModal();
+    };
+
+    openModal() {
+        this.setState({ modalIsOpen: true })
+    }
+
+    closeModal(){
+        this.setState({ modalIsOpen: false})
+    }
 
     handleProducts = productId => {
-        if(this.state._isMounted === true){
-        const itemIntList = this.state.products.find(item => item.productId === productId);
+        if(this.state._isMounted === true) {
+            const itemIntList = this.state.products.find(item => item.productId === productId);
 
-        if(this.state.filteredProducts.length > 0){
-            const newList = [].concat(this.state.filteredProducts)
-            newList.splice(itemIntList.index, 1);
-            this.setState({ filteredProducts: newList });
-        }
-
-        const newList = [].concat(this.state.products)
-        newList.splice(itemIntList.index, 1);
-        this.setState({ products: newList });
+            if (this.state.filteredProducts.length > 0 && itemIntList !== undefined && itemIntList !== null) {
+                const newList = [].concat(this.state.filteredProducts)
+                newList.splice(itemIntList.index, 1);
+                this.setState({filteredProducts: newList});
+            }
+            if (itemIntList !== undefined && itemIntList !== null) {
+                const newList = [].concat(this.state.products)
+                newList.splice(itemIntList.index, 1);
+                this.setState({products: newList});
+            }
         }
     }
 
     render() {
         return (
-            <div className="flex-container">
-
-                { this.state.activeProduct &&
-
-
-                <Modal show={this.state.activeProduct !== undefined} onHide={this.setState({activeProduct: {}})}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Modal heading</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <Product
-                            setActiveProduct={this.setProduct}
-                            product={this.state.activeProduct}
-                            productsChange={this.handleProducts}
-                        />
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={this.setState({activeProduct: {}})}>
-                            Close
-                        </Button>
-                    </Modal.Footer>
+            <div className="flex-container" id={"parentDiv"}>
+                { this.state._isMounted === true &&
+                <Modal
+                    appElement={document.getElementById("parentDiv")}
+                    isOpen={this.state.modalIsOpen}
+                    onRequestClose={this.closeModal}
+                    style={customStyles}
+                    contentLabel="Example Modal"
+                >
+                    <Product
+                        product={this.state.activeProduct}
+                        productsChange={this.handleProducts}
+                        resetProduct={this.resetProduct}
+                    />
                 </Modal>
                 }
-
                 <div className="flex-child magenta">
                     <Categories
                         parentProducts={this.state.products}
@@ -107,7 +126,6 @@ export default class Home extends React.Component {
                         setActiveProduct={this.setProduct}
                     />
                 </div>
-
             </div>
 
         );

@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Header from "./components/shared/header";
 import Home from "./components/Home";
 import React from "react";
-import Product from "./components/Product";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const App = () => {
