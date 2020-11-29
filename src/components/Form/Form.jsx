@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useState} from "react";
 import FormView from "./FormView";
 import moment from "moment";
 import {BidsApi} from "../../services/BidsApi";
@@ -23,12 +23,10 @@ const Form = (props) => {
     }
 
     function isBidDoneBeforeEnd(){
-
         let endDate = moment(props.product.biddingEndDate);
         let bidDate = moment();
 
         return bidDate <= endDate;
-
     }
 
     function saveBid(){

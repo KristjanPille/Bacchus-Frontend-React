@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect, useRef, useState} from "react";
-import moment from 'moment/min/moment-with-locales';
 import 'moment/locale/et'
 import {TimeFunc} from "../utils/CountdownHandler";
 import Form from "./Form/Form";
@@ -8,13 +7,7 @@ import placeholder from "../gallery/placeholder-image.jpg";
 
 function Product({ product, productsChange, resetProduct }) {
 
-    function setLocale(biddingEndDate){
-        moment.locale('et');
-        return moment(biddingEndDate).format("YYYY-MM-DD HH:mm:ss");
-    }
-
     const mounted = useRef(false);
-
     const [show, setShow] = useState(false);
     const [biddingEnded, setBiddingEnded] = useState(false);
 
@@ -32,7 +25,6 @@ function Product({ product, productsChange, resetProduct }) {
     const showAlert = () => {
         setShow(true);
     }
-    const { text } = product.productDescription;
 
     return (
         <>

@@ -26,7 +26,7 @@ function Products({ parentProducts, productsChange, filteredProducts, setActiveP
     const ProductsRow = (props) => (
             <div className="card border-dark mb-4">
                 <div className="card-body">
-                    <img className="card-img-top" src={placeholder} alt={"a"} style={{ width:"100%" }}/>
+                    <img className="card-img-top" src={placeholder} alt={"placeHolderImage"} style={{ width:"100%" }}/>
                     <h5 className="card-title font-weight-bold small">{props.product.productName}</h5>
 
                     { mounted.current === true &&
